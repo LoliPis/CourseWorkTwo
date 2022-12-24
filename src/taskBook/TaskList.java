@@ -17,7 +17,10 @@ public class TaskList {
     public Set<Task> getTaskByDate(LocalDate date){
         Set<Task> tasksList = new HashSet<>();
         for (Integer integer : taskMap.keySet()) {
-            if (taskMap.get(integer).getRepeatability() != null && !taskMap.get(integer).isDeleted()) {
+            if (taskMap.get(integer).getRepeatability() != null && !taskMap.get(integer).isDeleted()
+            && date.getDayOfMonth() >= taskMap.get(integer).getDate().getDayOfMonth()
+                && date.getMonthValue() >= taskMap.get(integer).getDate().getMonthValue()
+                    && date.getYear() >= taskMap.get(integer).getDate().getYear()) {
                 switch (taskMap.get(integer).getRepeatability()) {
                     case DISPOSABLE:
                         if (taskMap.get(integer).getDate() == date) {
